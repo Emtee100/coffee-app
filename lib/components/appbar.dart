@@ -9,7 +9,7 @@ class Appbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),
+                  const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
