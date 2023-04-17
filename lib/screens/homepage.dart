@@ -9,6 +9,7 @@ import '../components/banner1.dart';
 import '../components/banner2.dart';
 import '../components/banner3.dart';
 import '../components/banner4.dart';
+import '../models/coffee.dart';
 import '../widgets/beverages.dart';
 import '../widgets/foods.dart';
 
@@ -20,8 +21,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
-  
+  List<Coffee> homeCoffee = [
+    Coffee(name: "Americano", price: 2.05, imageURL: "images/coffee 1.jpg"),
+    Coffee(name: "Macchiato", price: 2.15, imageURL: "images/coffee 2.jpg"),
+  ];
 
   late final PageController _controller;
 
@@ -46,9 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               Appbar(),
-        
+
               // Page view banners
-        
+
               Container(
                 height: 250,
                 child: PageView(
@@ -71,9 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     dotHeight: 10,
                     activeDotColor: Colors.brown.shade600),
               ),
-        
+
               // Beverages section
-        
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
@@ -97,15 +100,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-        
+
               SizedBox(
                 height: 10.0,
               ),
-        
+
               Beverages(),
-        
+
               // Foods section
-        
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
@@ -129,14 +132,55 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-        
-              SizedBox(height: 8.0,),
-        
+
+              SizedBox(
+                height: 8.0,
+              ),
+
               Foods(),
 
               // items
-              
-              
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25.0),
+                height: 250,
+                child: GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: homeCoffee.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 15.0,
+                        childAspectRatio: 2 / 3),
+                    itemBuilder: (context, index) {
+                      return Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              homeCoffee[index].imageURL,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Positioned(
+                            right: 10.0,
+                            top: 10.0,
+                            child: Container(
+                              padding: EdgeInsets.all(6.0),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20)
+                              ),
+                              child: Text(
+                                '\$ ${homeCoffee[index].price}',
+                              style: GoogleFonts.mulish(
+                                fontWeight: FontWeight.w600
+                              ),),
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
+              )
             ],
           ),
         ),
