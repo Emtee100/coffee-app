@@ -10,7 +10,7 @@ class Foods extends StatelessWidget {
       {"icon": FaIcon(FontAwesomeIcons.burger), "text": "Signatured"},
       {"icon": Icon(Icons.cake), "text": "Bakery"},
       {"icon": Icon(Icons.rice_bowl_rounded), "text": "Salad"},
-      {"icon": FaIcon(FontAwesomeIcons.tumblr), "text": "Yoghurt"}
+      {"icon": FaIcon(FontAwesomeIcons.bowlFood), "text": "Yoghurt"}
     ];
 
     return Container(

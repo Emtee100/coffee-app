@@ -1,14 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../components/appbar.dart';
 import '../components/banner1.dart';
 import '../components/banner2.dart';
 import '../components/banner3.dart';
 import '../components/banner4.dart';
+import '../components/bottomnavbar.dart';
 import '../models/coffee.dart';
 import '../widgets/beverages.dart';
 import '../widgets/foods.dart';
@@ -161,6 +162,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               fit: BoxFit.cover,
                             ),
                           ),
+
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.3),    
+                              borderRadius: BorderRadius.circular(13)                                      
+                            ),
+                          ),
                           Positioned(
                             right: 10.0,
                             top: 10.0,
@@ -177,6 +185,20 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),),
                             ),
                           ),
+
+                          Positioned(
+                            bottom: 20.0,
+                            left: 10.0,
+                            child: Container(
+                              child: Text(homeCoffee[index].name, style: GoogleFonts.mulish(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w600,
+                              ), softWrap: true,),
+                            ),
+                          )
+
+                          
                         ],
                       );
                     }),
@@ -184,6 +206,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
+        bottomNavigationBar: BottomNavBar(
+          
+        )
       ),
     );
   }
