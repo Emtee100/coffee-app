@@ -1,3 +1,4 @@
+import 'package:coffee_shop/screens/firstscreen.dart';
 import 'package:coffee_shop/screens/homepage.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: FirstScreen(),
     );
   }
 }

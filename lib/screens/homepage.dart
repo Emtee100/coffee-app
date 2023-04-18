@@ -2,14 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../components/appbar.dart';
 import '../components/banner1.dart';
 import '../components/banner2.dart';
 import '../components/banner3.dart';
 import '../components/banner4.dart';
-import '../components/bottomnavbar.dart';
 import '../models/coffee.dart';
 import '../widgets/beverages.dart';
 import '../widgets/foods.dart';
@@ -22,6 +20,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  
+
   List<Coffee> homeCoffee = [
     Coffee(name: "Americano", price: 2.05, imageURL: "images/coffee 1.jpg"),
     Coffee(name: "Macchiato", price: 2.15, imageURL: "images/coffee 2.jpg"),
@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -206,9 +207,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavBar(
-          
-        )
       ),
     );
   }
