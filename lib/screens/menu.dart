@@ -70,7 +70,7 @@ List<Coffee> productsData;
                         right: 10.0,
                         top: 10.0,
                         child: Container(
-                          padding: EdgeInsets.all(6.0),
+                          padding: const EdgeInsets.all(6.0),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20)
