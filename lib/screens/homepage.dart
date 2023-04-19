@@ -20,8 +20,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
-
   List<Coffee> homeCoffee = [
     Coffee(name: "Americano", price: 2.05, imageURL: "images/coffee 1.jpg"),
     Coffee(name: "Macchiato", price: 2.15, imageURL: "images/coffee 2.jpg"),
@@ -43,7 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -163,12 +160,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               fit: BoxFit.cover,
                             ),
                           ),
-
                           Container(
                             decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.3),    
-                              borderRadius: BorderRadius.circular(13)                                      
-                            ),
+                                color: Colors.black.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(13)),
                           ),
                           Positioned(
                             right: 10.0,
@@ -176,30 +171,30 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Container(
                               padding: EdgeInsets.all(6.0),
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20)
-                              ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20)),
                               child: Text(
                                 '\$ ${homeCoffee[index].price}',
-                              style: GoogleFonts.mulish(
-                                fontWeight: FontWeight.w600
-                              ),),
+                                style: GoogleFonts.mulish(
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
                           ),
-
                           Positioned(
                             bottom: 20.0,
                             left: 10.0,
                             child: Container(
-                              child: Text(homeCoffee[index].name, style: GoogleFonts.mulish(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w600,
-                              ), softWrap: true,),
+                              child: Text(
+                                homeCoffee[index].name,
+                                style: GoogleFonts.mulish(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                softWrap: true,
+                              ),
                             ),
                           )
-
-                          
                         ],
                       );
                     }),

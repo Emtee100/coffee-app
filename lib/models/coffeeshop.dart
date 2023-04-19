@@ -4,7 +4,7 @@ import 'coffee.dart';
 
 
 
-class CoffeeShop{
+class CoffeeShop with ChangeNotifier{
   // list of coffee on sale
   final List<Coffee> _shop =[
     Coffee(name: "Americano", 
@@ -16,7 +16,7 @@ class CoffeeShop{
     imageURL: "images/coffee 2.jpg"),
 
     Coffee(name: "Flat White", 
-    price: 2.00, 
+    price: 2.05, 
     imageURL: "images/coffee 3.jpg"),
 
     Coffee(name: "Latte", 
@@ -47,10 +47,12 @@ class CoffeeShop{
 
   void addCoffee(Coffee coffee){
     _selectedCoffee.add(coffee);
+    notifyListeners();
   }
 
   // method of removing coffee from user selected list
   void removeCoffee(Coffee coffee){
     _selectedCoffee.remove(coffee);
+    notifyListeners();
   }
 }
