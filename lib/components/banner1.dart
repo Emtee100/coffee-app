@@ -39,7 +39,7 @@ class Banner1 extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
 
                     Container(
                       padding: EdgeInsets.all(10),

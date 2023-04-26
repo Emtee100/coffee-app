@@ -30,7 +30,7 @@ class _MenuState extends State<Menu> {
       body: Consumer<CoffeeShop>(
         builder: (context, value, child) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: ProductsGrid(productsData: value.coffee),
+          child: ProductsGrid(productsData: value),
         ),
       ),
     );
@@ -38,11 +38,12 @@ class _MenuState extends State<Menu> {
 }
 
 class ProductsGrid extends StatelessWidget {
-  List<Coffee> productsData;
+  CoffeeShop productsData;
   ProductsGrid({super.key, required this.productsData});
 
   @override
   Widget build(BuildContext context) {
+    List<Coffee> products = productsData.coffee;
     return GridView.builder(
         physics: const BouncingScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -50,7 +51,7 @@ class ProductsGrid extends StatelessWidget {
             mainAxisSpacing: 17.0,
             crossAxisSpacing: 17.0,
             childAspectRatio: 2 / 3),
-        itemCount: productsData.length,
+        itemCount: products.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
@@ -60,43 +61,52 @@ class ProductsGrid extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => Americano(
-                                product: productsData[index],
+                                product: products[index],
+                                store: productsData,
                               )));
                   break;
                 case 1:
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              Macchiato(product: productsData[index])));
+                          builder: (context) => Macchiato(
+                                product: products[index],
+                                store: productsData,
+                              )));
                   break;
                 case 2:
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              FlatWhite(product: productsData[index])));
+                          builder: (context) => FlatWhite(
+                                product: products[index],
+                                store: productsData,
+                              )));
                   break;
                 case 3:
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              Latte(product: productsData[index])));
+                          builder: (context) => Latte(
+                                product: products[index],
+                                store: productsData,
+                              )));
                   break;
                 case 4:
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              IcedCoffee(product: productsData[index])));
+                          builder: (context) => IcedCoffee(
+                                product: products[index],
+                                store: productsData,
+                              )));
                   break;
                 case 5:
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              Expresso(product: productsData[index])));
+                          builder: (context) => Expresso(
+                              product: products[index], store: productsData)));
                   break;
               }
             },
@@ -106,7 +116,7 @@ class ProductsGrid extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.asset(
-                    productsData[index].imageURL,
+                    products[index].imageURL,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -124,7 +134,7 @@ class ProductsGrid extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20)),
                     child: Text(
-                      '\$ ${productsData[index].price}',
+                      '\$ ${products[index].price}',
                       style: GoogleFonts.mulish(fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -134,7 +144,7 @@ class ProductsGrid extends StatelessWidget {
                   left: 10.0,
                   child: Container(
                     child: Text(
-                      productsData[index].name,
+                      products[index].name,
                       style: GoogleFonts.mulish(
                         color: Colors.white,
                         fontSize: 20.0,
