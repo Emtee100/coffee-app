@@ -45,7 +45,9 @@ class CoffeeShop with ChangeNotifier{
 
   // method of adding coffee to user selected list
 
-  void addCoffee(Coffee coffee){
+  void addCoffee(Coffee coffee, double totalPrice, String productSize){
+    coffee.totalPrice = totalPrice;
+    coffee.size = productSize;
     _selectedCoffee.add(coffee);
     notifyListeners();
   }

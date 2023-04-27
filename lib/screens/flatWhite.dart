@@ -295,7 +295,7 @@ class _FlatWhiteState extends State<FlatWhite> {
                               ],
                             ),
                             GestureDetector(
-                              onTap: () => widget.store.addCoffee(widget.product),
+                              onTap: () => widget.store.addCoffee(widget.product, (widget.product.price * noOfCoffee), drinkSize[selectedSize]["text"]),
                               child: Container(
                                 padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                                 decoration: BoxDecoration(

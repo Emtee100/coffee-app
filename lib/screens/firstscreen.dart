@@ -1,5 +1,5 @@
 import 'package:coffee_shop/models/coffeeshop.dart';
-import 'package:coffee_shop/screens/gifts.dart';
+import 'package:coffee_shop/screens/cart.dart';
 import 'package:coffee_shop/screens/homepage.dart';
 import 'package:coffee_shop/screens/menu.dart';
 import 'package:coffee_shop/screens/profile.dart';
@@ -18,7 +18,7 @@ class _FirstScreenState extends State<FirstScreen> {
   int selectedTab = 0;
   @override
   Widget build(BuildContext context) {
-    List screens = const [MyHomePage(), Menu(), Gifts(), Profile()];
+    List screens = const [MyHomePage(), Menu(), Cart(), Profile()];
     return ChangeNotifierProvider(
       create: (context) => CoffeeShop(),
       child: Scaffold(
@@ -41,7 +41,9 @@ class _FirstScreenState extends State<FirstScreen> {
                       label: "home"),
                   NavigationDestination(icon: Icon(Icons.coffee), label: "menu"),
                   NavigationDestination(
-                      icon: Icon(Icons.card_giftcard), label: "gifts"),
+                      icon: Icon(Icons.shopping_bag_outlined),
+                      selectedIcon: Icon(Icons.shopping_bag_rounded),
+                       label: "cart"),
                   NavigationDestination(
                       icon: Icon(Icons.account_circle_outlined), 
                       selectedIcon: Icon(Icons.account_circle_rounded),

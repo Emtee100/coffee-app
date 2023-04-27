@@ -296,7 +296,7 @@ class _AmeriacnoState extends State<Americano> {
                               ],
                             ),
                             GestureDetector(
-                              onTap: () => widget.store.addCoffee(widget.product),
+                              onTap: () => widget.store.addCoffee(widget.product, (widget.product.price * noOfCoffee), drinkSize[selectedSize]["text"]),
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                                 decoration: BoxDecoration(
