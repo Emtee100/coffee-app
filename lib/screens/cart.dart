@@ -24,24 +24,32 @@ class _CartState extends State<Cart> {
         body: Consumer<CoffeeShop>(
           builder: (context, value, child) => Stack(
             children: [
-              ListView.builder(
-                itemCount: value.checkout.length,
-                itemBuilder: (context, index) {
-                  return value.checkout.isEmpty
-                      ? Center(
-                          child: Text(
-                          "No items in cart, go to our menu and add items",
-                          style: GoogleFonts.mulish(),
-                        ))
-                      : Container(
+              value.checkout.isEmpty
+                  ? Center(
+                      child: Text(
+                        "Nothing to show in the Cart",
+                        style: GoogleFonts.mulish(
+                            fontSize: 20, color: Colors.grey),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: value.checkout.length,
+                      itemBuilder: (context, index) {
+                        return
+                            // each individual container
+                            Container(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           margin: const EdgeInsets.symmetric(horizontal: 15.0),
                           decoration: BoxDecoration(
                               //border: Border.all(color: Colors.black, width: 3.0),
                               borderRadius: BorderRadius.circular(20)),
                           height: 200,
+                          // the picture and coffee information
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                            // image of the coffee
+
                             children: [
                               ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
@@ -49,6 +57,9 @@ class _CartState extends State<Cart> {
                                     value.checkout[index].imageURL,
                                     width: 120,
                                   )),
+
+                              // information about the coffee
+
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -82,7 +93,7 @@ class _CartState extends State<Cart> {
                                             MaterialStatePropertyAll(
                                                 Colors.brown.shade500),
                                         foregroundColor:
-                                            MaterialStatePropertyAll(
+                                            const MaterialStatePropertyAll(
                                                 Colors.white)),
                                     onPressed: () => value
                                         .removeCoffee(value.checkout[index]),
@@ -96,7 +107,42 @@ class _CartState extends State<Cart> {
                             ],
                           ),
                         );
-                },
+                      },
+                    ),
+              Positioned(
+                left: 45,
+                bottom: 10.0,
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(context: context,
+                    barrierDismissible: false,
+                     builder: (_) =>  AlertDialog(
+                      title: Text("Purchase Coffee ?", style: GoogleFonts.mulish()),
+                      actions: [
+                        ElevatedButton(onPressed: (){
+                          value.buyItems();
+                          Navigator.pop(context);
+                        }, child: const Text("Yes")),
+                        ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text("No"))
+                      ],
+                    ));
+                    
+                  },
+                
+                    child: Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                      decoration: const BoxDecoration(
+                        color: Colors.brown,
+                      ),
+                      child: Text(
+                        "Checkout",
+                        style:
+                            GoogleFonts.mulish(color: Colors.white, fontSize: 15),
+                      ),
+                    ),
+                  
+                ),
               )
             ],
           ),

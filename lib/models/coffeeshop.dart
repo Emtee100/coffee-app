@@ -57,4 +57,9 @@ class CoffeeShop with ChangeNotifier{
     _selectedCoffee.remove(coffee);
     notifyListeners();
   }
+
+  void buyItems (){
+      checkout.clear();
+      notifyListeners();
+  }
 }

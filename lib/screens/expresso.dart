@@ -295,7 +295,16 @@ class _ExpressoState extends State<Expresso> {
                               ],
                             ),
                             GestureDetector(
-                              onTap: () => widget.store.addCoffee(widget.product, (widget.product.price * noOfCoffee), drinkSize[selectedSize]["text"]),
+                              onTap: () { widget.store.addCoffee(widget.product, (widget.product.price * noOfCoffee), drinkSize[selectedSize]["text"]);
+                               ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                  "Added to Cart",
+                                  style: GoogleFonts.mulish(),
+                                ),
+                                duration: const Duration(seconds: 1),
+                              ));
+                              },
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                                 decoration: BoxDecoration(
