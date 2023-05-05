@@ -9,27 +9,34 @@ class CoffeeShop with ChangeNotifier{
   final List<Coffee> _shop =[
     Coffee(name: "Americano", 
     price: 2.05, 
-    imageURL: "images/coffee 1.jpg"),
+    imageURL: "images/coffee 1.jpg",
+    tag: "coffee-1"
+    ),
 
     Coffee(name: "Macchiato", 
     price: 2.15, 
-    imageURL: "images/coffee 2.jpg"),
+    imageURL: "images/coffee 2.jpg",
+    tag: "coffee-2"),
 
     Coffee(name: "Flat White", 
     price: 2.05, 
-    imageURL: "images/coffee 3.jpg"),
+    imageURL: "images/coffee 3.jpg",
+    tag: "coffee-3"),
 
     Coffee(name: "Latte", 
     price: 2.15, 
-    imageURL: "images/coffee 4.jpg"),
+    imageURL: "images/coffee 4.jpg",
+    tag: "coffee-4"),
 
     Coffee(name: "Iced Coffee", 
     price: 1.95, 
-    imageURL: "images/coffee 5.jpg"),
+    imageURL: "images/coffee 5.jpg",
+    tag: "coffee-5"),
 
     Coffee(name: "Expresso", 
     price: 2.25, 
-    imageURL: "images/coffee 6.jpg"),
+    imageURL: "images/coffee 6.jpg",
+    tag: "coffee-6"),
 
   ];
   // user selected coffee

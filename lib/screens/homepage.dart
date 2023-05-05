@@ -21,8 +21,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Coffee> homeCoffee = [
-    Coffee(name: "Americano", price: 2.05, imageURL: "images/coffee 1.jpg"),
-    Coffee(name: "Macchiato", price: 2.15, imageURL: "images/coffee 2.jpg"),
+    Coffee(name: "Americano", price: 2.05, imageURL: "images/coffee 1.jpg", tag: "coffee 1"),
+    Coffee(name: "Macchiato", price: 2.15, imageURL: "images/coffee 2.jpg", tag: "coffee 2"),
   ];
 
   late final PageController _controller;

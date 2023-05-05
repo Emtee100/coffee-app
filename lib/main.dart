@@ -1,4 +1,5 @@
 import 'package:coffee_shop/screens/firstscreen.dart';
+import 'package:coffee_shop/screens/login_page.dart';
 import 'package:coffee_shop/screens/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: Colors.blue,
       ),
-      home: const FirstScreen(),
+      home: const MainPage(),
     );
   }
 }
