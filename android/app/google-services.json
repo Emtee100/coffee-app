@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "36441300089",
+    "project_id": "my-dribbble-app",
+    "storage_bucket": "my-dribbble-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36441300089:android:1e0d73cf3cdb26bc9b48a8",
+        "android_client_info": {
+          "package_name": "com.example.coffee_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "36441300089-1td6th66h2e1bp1e7rb37m1endikfpaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKHmrO1hoFU0nsubo1-jVx3rkK9M6dVlE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "36441300089-1td6th66h2e1bp1e7rb37m1endikfpaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

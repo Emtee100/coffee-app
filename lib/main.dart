@@ -1,9 +1,14 @@
 import 'package:coffee_shop/screens/firstscreen.dart';
-import 'package:coffee_shop/screens/homepage.dart';
+import 'package:coffee_shop/screens/main_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 
+import 'firebase_options.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -20,8 +25,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         primarySwatch: Colors.blue,
       ),
-      home: FirstScreen(),
+      home: const FirstScreen(),
     );
   }
 }
-
