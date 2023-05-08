@@ -1,4 +1,5 @@
 import 'package:coffee_shop/screens/firstscreen.dart';
+import 'package:coffee_shop/screens/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class MainPage extends StatefulWidget {
   @override
   State<MainPage> createState() => _MainPageState();
 }
-
+  
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
@@ -21,8 +22,15 @@ class _MainPageState extends State<MainPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return const FirstScreen();
-          } else {
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const LoginPage();
+          } 
+          // else if (snapshot.connectionState == ConnectionState.active) {
+          //   return const LoadingScreen();
+          // } 
+          else {
+            return const LoginPage();
+           
           }
         },
       ),
