@@ -11,29 +11,46 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late final TextEditingController _emailController;
-  late final TextEditingController _passwordController;
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
+  late FocusNode myFocusNode;
 
   @override
   void initState() {
-    // TODO: implement initState
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _emailErrorCode = '';
+    _passwordErrorCode = '';
+    myFocusNode = FocusNode();
     super.initState();
   }
 
+  late String _emailErrorCode;
+  late String _passwordErrorCode;
+
   @override
   void dispose() {
-    // TODO: implement dispose
     _emailController.dispose();
     _passwordController.dispose();
+    myFocusNode.dispose();
     super.dispose();
   }
 
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim());
+  Future<dynamic> signIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        _emailErrorCode == e.code;
+      } else if (e.code == 'wrong-password') {
+        _passwordErrorCode == e.code;
+      }
+      // else if(e.code == 'invalid-email'){
+
+      // }
+    }
   }
 
   @override
@@ -51,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 20.0, top: 15.0),
+              padding: const EdgeInsets.only(left: 20.0, top: 15.0),
               child: Text(
                 "Login to your account",
                 style: GoogleFonts.mulish(
@@ -62,12 +79,17 @@ class _LoginPageState extends State<LoginPage> {
               height: 12.0,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
+                onEditingComplete: () => myFocusNode.requestFocus(),
+                // onSubmitted: (value) {
+                //     TextInputAction.next;
+                //   },
+                autofocus: true,
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.mail,
                     color: Colors.grey,
                   ),
@@ -82,12 +104,15 @@ class _LoginPageState extends State<LoginPage> {
               height: 14.0,
             ),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: TextField(
+                 focusNode: myFocusNode,
+                  cursorColor: Colors.brown,
+                  onEditingComplete: () => myFocusNode.unfocus(),
                   controller: _passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.lock,
                         color: Colors.grey,
                       ),
@@ -125,8 +150,8 @@ class _LoginPageState extends State<LoginPage> {
             GestureDetector(
               onTap: () => signIn(),
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 133.0, vertical: 18.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 133.0, vertical: 18.0),
                 decoration: BoxDecoration(
                     color: Colors.brown,
                     borderRadius: BorderRadius.circular(30.0)),
@@ -144,15 +169,15 @@ class _LoginPageState extends State<LoginPage> {
             // Other authentication options
 
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 18.0),
-              padding: EdgeInsets.symmetric(vertical: 12),
+              margin: const EdgeInsets.symmetric(horizontal: 18.0),
+              padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                   border: Border.all(),
                   borderRadius: BorderRadius.circular(25)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FaIcon(FontAwesomeIcons.google),
+                  const FaIcon(FontAwesomeIcons.google),
                   const SizedBox(
                     width: 10,
                   ),
@@ -171,15 +196,15 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 18.0),
-              padding: EdgeInsets.symmetric(vertical: 12),
+              margin: const EdgeInsets.symmetric(horizontal: 18.0),
+              padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                   border: Border.all(),
                   borderRadius: BorderRadius.circular(25)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FaIcon(FontAwesomeIcons.facebook),
+                  const FaIcon(FontAwesomeIcons.facebook),
                   const SizedBox(
                     width: 10,
                   ),
@@ -199,7 +224,7 @@ class _LoginPageState extends State<LoginPage> {
 
             // Register account text
 
-            Text("Don't have an account?")
+            const Text("Don't have an account?")
           ],
         ),
       ),
