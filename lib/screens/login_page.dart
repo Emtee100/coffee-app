@@ -14,19 +14,20 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   late FocusNode myFocusNode;
+  final _loginFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-    _emailErrorCode = '';
-    _passwordErrorCode = '';
+    // _emailErrorCode = '';
+    // _passwordErrorCode = '';
     myFocusNode = FocusNode();
     super.initState();
   }
 
-  late String _emailErrorCode;
-  late String _passwordErrorCode;
+  bool _emailErrorCode= false;
+  bool _passwordErrorCode = false;
 
   @override
   void dispose() {
@@ -43,9 +44,16 @@ class _LoginPageState extends State<LoginPage> {
           password: _passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        _emailErrorCode == e.code;
-      } else if (e.code == 'wrong-password') {
-        _passwordErrorCode == e.code;
+        setState(() => _emailErrorCode = true);
+      } else{
+        setState(() => _emailErrorCode = false);
+      }
+      
+      if (e.code == 'wrong-password') {
+        setState(() => _passwordErrorCode = true);
+      }
+      else{
+        setState(() => _passwordErrorCode = false);
       }
       // else if(e.code == 'invalid-email'){
 
@@ -65,167 +73,190 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, top: 15.0),
-              child: Text(
-                "Login to your account",
-                style: GoogleFonts.mulish(
-                    fontSize: 40, fontWeight: FontWeight.w600),
-              ),
-            ),
-            const SizedBox(
-              height: 12.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: TextField(
-                onEditingComplete: () => myFocusNode.requestFocus(),
-                // onSubmitted: (value) {
-                //     TextInputAction.next;
-                //   },
-                autofocus: true,
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(
-                    Icons.mail,
-                    color: Colors.grey,
-                  ),
-                  hintText: "Enter your email",
-                  hintStyle: GoogleFonts.mulish(color: Colors.grey),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 14.0,
-            ),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: TextField(
-                 focusNode: myFocusNode,
-                  cursorColor: Colors.brown,
-                  onEditingComplete: () => myFocusNode.unfocus(),
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.lock,
-                        color: Colors.grey,
-                      ),
-                      hintText: "Enter your password",
-                      hintStyle: GoogleFonts.mulish(color: Colors.grey),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15))),
-                )),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Checkbox(value: true, onChanged: (value) {}),
-                      Text(
-                        "Remember me",
-                        style: GoogleFonts.mulish(),
-                      )
-                    ],
-                  ),
-                  TextButton(
-                      onPressed: () => print("Forgot password"),
-                      child: Text(
-                        "Forgot password",
-                        style: GoogleFonts.mulish(),
-                      )),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 12.0,
-            ),
-            GestureDetector(
-              onTap: () => signIn(),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 133.0, vertical: 18.0),
-                decoration: BoxDecoration(
-                    color: Colors.brown,
-                    borderRadius: BorderRadius.circular(30.0)),
+        child: Form(
+          key: _loginFormKey,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0, top: 15.0),
                 child: Text(
-                  "Sign in",
-                  style: GoogleFonts.mulish(color: Colors.white, fontSize: 18),
+                  "Login to your account",
+                  style: GoogleFonts.mulish(
+                      fontSize: 40, fontWeight: FontWeight.w600),
                 ),
               ),
-            ),
-
-            const SizedBox(
-              height: 20.0,
-            ),
-
-            // Other authentication options
-
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 18.0),
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(25)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const FaIcon(FontAwesomeIcons.google),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Continue with Google",
-                    style: GoogleFonts.mulish(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  )
-                ],
+              const SizedBox(
+                height: 12.0,
               ),
-            ),
-
-            const SizedBox(
-              height: 12.0,
-            ),
-
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 18.0),
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(25)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const FaIcon(FontAwesomeIcons.facebook),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Continue with Facebook",
-                    style: GoogleFonts.mulish(
-                      fontWeight: FontWeight.w600,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: TextFormField(
+                  validator: (value) {
+                      if(value == null || value.isEmpty){
+                        return "Please enter an email address";
+                      }
+                      return null;
+                    },
+                  onEditingComplete: () => myFocusNode.requestFocus(),
+                  autofocus: true,
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  style: GoogleFonts.mulish(),
+                  decoration: InputDecoration(
+                    errorText: _emailErrorCode?"Email not found":null,
+                    prefixIcon: const Icon(
+                      Icons.mail,
+                      color: Colors.grey,
                     ),
-                  )
-                ],
+                    hintText: "Enter your email",
+                    hintStyle: GoogleFonts.mulish(color: Colors.grey),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                ),
               ),
-            ),
-
-            const SizedBox(
-              height: 50,
-            ),
-
-            // Register account text
-
-            const Text("Don't have an account?")
-          ],
+              const SizedBox(
+                height: 14.0,
+              ),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: TextFormField(
+                    
+                    validator: (value) {
+                      if(value == null || value.isEmpty){
+                        return "Please enter a password";
+                      }
+                      return null;
+                    },
+                    style: GoogleFonts.mulish(),
+                   focusNode: myFocusNode,
+                    cursorColor: Colors.brown,
+                    onEditingComplete: () => myFocusNode.unfocus(),
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      errorText: _passwordErrorCode?"Password is incorrect":null,
+                        prefixIcon: const Icon(
+                          Icons.lock,
+                          color: Colors.grey,
+                        ),
+                        hintText: "Enter your password",
+                        hintStyle: GoogleFonts.mulish(color: Colors.grey),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15))),
+                  )),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Checkbox(value: true, onChanged: (value) {}),
+                        Text(
+                          "Remember me",
+                          style: GoogleFonts.mulish(),
+                        )
+                      ],
+                    ),
+                    TextButton(
+                        onPressed: () => print("Forgot Password"),
+                        child: Text(
+                          "Forgot password",
+                          style: GoogleFonts.mulish(),
+                        )),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 12.0,
+              ),
+              GestureDetector(
+                onTap: (){
+                  
+                  if(_loginFormKey.currentState!.validate()){
+                    signIn();
+                  }
+                  
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 133.0, vertical: 18.0),
+                  decoration: BoxDecoration(
+                      color: Colors.brown,
+                      borderRadius: BorderRadius.circular(30.0)),
+                  child: Text(
+                    "Sign in",
+                    style: GoogleFonts.mulish(color: Colors.white, fontSize: 18),
+                  ),
+                ),
+              ),
+        
+              const SizedBox(
+                height: 20.0,
+              ),
+        
+              // Other authentication options
+        
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 18.0),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(25)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const FaIcon(FontAwesomeIcons.google),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Continue with Google",
+                      style: GoogleFonts.mulish(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+        
+              const SizedBox(
+                height: 12.0,
+              ),
+        
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 18.0),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(25)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const FaIcon(FontAwesomeIcons.facebook),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Continue with Facebook",
+                      style: GoogleFonts.mulish(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+        
+              const SizedBox(
+                height: 50,
+              ),
+        
+              // Register account text
+        
+              const Text("Don't have an account?")
+            ],
+          ),
         ),
       ),
     );

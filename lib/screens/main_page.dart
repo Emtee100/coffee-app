@@ -27,7 +27,7 @@ class _MainPageState extends State<MainPage> {
           } 
           // else if (snapshot.connectionState == ConnectionState.active) {
           //   return const LoadingScreen();
-          // } 
+          // }
           else {
             return const LoginPage();
            

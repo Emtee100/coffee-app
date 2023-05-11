@@ -41,7 +41,7 @@ class CoffeeShop with ChangeNotifier{
   ];
   // user selected coffee
 
-  List <Coffee> _selectedCoffee = [];
+  final List <Coffee> _selectedCoffee = [];
 
   // get coffee list
    List <Coffee> get coffee => _shop;

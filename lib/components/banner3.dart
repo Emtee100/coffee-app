@@ -39,10 +39,10 @@ class Banner3 extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
 
                     Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           color: Colors.brown.shade600,
                           borderRadius: BorderRadius.circular(30)),

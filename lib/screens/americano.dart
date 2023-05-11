@@ -1,7 +1,6 @@
 import 'package:coffee_shop/models/coffeeshop.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 import '../models/coffee.dart';
 
@@ -32,7 +31,7 @@ class _AmeriacnoState extends State<Americano> {
             onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back)),
         actions: [
-          Padding(
+          const Padding(
               padding: EdgeInsets.only(right: 10.0), child: Icon(Icons.share))
         ],
       ),
@@ -233,10 +232,10 @@ class _AmeriacnoState extends State<Americano> {
 
                     Container(
                       height: 80,
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                       ),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20),
@@ -256,8 +255,8 @@ class _AmeriacnoState extends State<Americano> {
                                   });
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
-                                  padding: EdgeInsets.symmetric(
+                                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(
                                     horizontal: 15,
                                   ),
                                   decoration: BoxDecoration(
@@ -282,8 +281,8 @@ class _AmeriacnoState extends State<Americano> {
                                   setState(() => noOfCoffee++);
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
-                                  padding: EdgeInsets.symmetric(
+                                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 15, vertical: 5.0),
                                   decoration: BoxDecoration(
                                     border: Border.all(color: Colors.white),
@@ -314,7 +313,7 @@ class _AmeriacnoState extends State<Americano> {
                               ));
                             },
                             child: Container(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 10),
                                 decoration: BoxDecoration(
                                     color: Colors.pink.shade100,

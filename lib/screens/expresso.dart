@@ -31,7 +31,7 @@ class _ExpressoState extends State<Expresso> {
             onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back)),
         actions: [
-          Padding(
+          const Padding(
               padding: EdgeInsets.only(right: 10.0), child: Icon(Icons.share))
         ],
       ),
@@ -232,8 +232,8 @@ class _ExpressoState extends State<Expresso> {
       
                       Container(
                         height: 80,
-                        padding: EdgeInsets.symmetric(horizontal: 20,),
-                        decoration: BoxDecoration(
+                        padding: const EdgeInsets.symmetric(horizontal: 20,),
+                        decoration: const BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
                         ),
@@ -252,8 +252,8 @@ class _ExpressoState extends State<Expresso> {
                                     } );
                                   },
                                   child: Container(
-                                   margin: EdgeInsets.symmetric(horizontal: 10),
-                                    padding: EdgeInsets.symmetric(horizontal: 15, ),
+                                   margin: const EdgeInsets.symmetric(horizontal: 10),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, ),
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Colors.white),
                                       borderRadius: BorderRadius.circular(60),
@@ -277,8 +277,8 @@ class _ExpressoState extends State<Expresso> {
                                     setState(() => noOfCoffee++);
                                   },
                                   child: Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 10),
-                                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5.0),
+                                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5.0),
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Colors.white),
                                       borderRadius: BorderRadius.circular(60),
@@ -306,7 +306,7 @@ class _ExpressoState extends State<Expresso> {
                               ));
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                                 decoration: BoxDecoration(
                                   color: Colors.pink.shade100,
                                   borderRadius: BorderRadius.circular(25)

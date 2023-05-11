@@ -27,7 +27,7 @@ class _FirstScreenState extends State<FirstScreen> {
             data: NavigationBarThemeData(
                 indicatorColor: Colors.brown.shade300,
                 labelTextStyle:
-                    MaterialStateProperty.all(TextStyle(fontSize: 15))),
+                    MaterialStateProperty.all(const TextStyle(fontSize: 15))),
             child: NavigationBar(
                 selectedIndex: selectedTab,
                 onDestinationSelected: (index) => setState(() {
