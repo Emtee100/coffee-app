@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -37,6 +38,26 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+
+  //sign in method using Google as provider
+  Future <UserCredential> signInWithGoogle() async{
+    //Triger authentication flow i.e showing list of google accounts and store the data about that account into the variable
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    //get the authentication tokens from the account and store them in the googleAuth runtime constant(final)
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    
+    //create a credential 
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken
+    );
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+
+  // sign in function for email and password
   Future<dynamic> signIn() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -198,26 +219,29 @@ class _LoginPageState extends State<LoginPage> {
         
               // Other authentication options
         
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 18.0),
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(25)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const FaIcon(FontAwesomeIcons.google),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Continue with Google",
-                      style: GoogleFonts.mulish(
-                        fontWeight: FontWeight.w600,
+              GestureDetector(
+                onTap: () => signInWithGoogle(),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 18.0),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(25)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const FaIcon(FontAwesomeIcons.google),
+                      const SizedBox(
+                        width: 10,
                       ),
-                    )
-                  ],
+                      Text(
+                        "Continue with Google",
+                        style: GoogleFonts.mulish(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
         
