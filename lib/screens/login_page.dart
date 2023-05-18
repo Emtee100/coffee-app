@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
-  bool _emailErrorCode= false;
+  bool _emailErrorCode = false;
   bool _passwordErrorCode = false;
 
   @override
@@ -38,24 +39,39 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-
   //sign in method using Google as provider
-  Future <UserCredential> signInWithGoogle() async{
+  Future<UserCredential> signInWithGoogle() async {
+    showDialog(
+        barrierColor: Colors.black12,
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(
+                color: Colors.brown,
+              ),
+            ));
+
+    // Future.delayed(const Duration(seconds: 2), () {
+    //   if (context.mounted) {
+    //     Navigator.pop(context);
+    //   }
+    // });
     //Triger authentication flow i.e showing list of google accounts and store the data about that account into the variable
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     //get the authentication tokens from the account and store them in the googleAuth runtime constant(final)
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-    
-    //create a credential 
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    //create a credential
     final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken
-    );
+        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+
+    if (context.mounted) {
+      Navigator.pop(context);
+    }
 
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
-
 
   // sign in function for email and password
   Future<dynamic> signIn() async {
@@ -66,14 +82,13 @@ class _LoginPageState extends State<LoginPage> {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         setState(() => _emailErrorCode = true);
-      } else{
+      } else {
         setState(() => _emailErrorCode = false);
       }
-      
+
       if (e.code == 'wrong-password') {
         setState(() => _passwordErrorCode = true);
-      }
-      else{
+      } else {
         setState(() => _passwordErrorCode = false);
       }
       // else if(e.code == 'invalid-email'){
@@ -113,18 +128,18 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: TextFormField(
                   validator: (value) {
-                      if(value == null || value.isEmpty){
-                        return "Please enter an email address";
-                      }
-                      return null;
-                    },
+                    if (value == null || value.isEmpty) {
+                      return "Please enter an email address";
+                    }
+                    return null;
+                  },
                   onEditingComplete: () => myFocusNode.requestFocus(),
                   autofocus: true,
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   style: GoogleFonts.mulish(),
                   decoration: InputDecoration(
-                    errorText: _emailErrorCode?"Email not found":null,
+                    errorText: _emailErrorCode ? "Email not found" : null,
                     prefixIcon: const Icon(
                       Icons.mail,
                       color: Colors.grey,
@@ -142,21 +157,21 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: TextFormField(
-                    
                     validator: (value) {
-                      if(value == null || value.isEmpty){
+                      if (value == null || value.isEmpty) {
                         return "Please enter a password";
                       }
                       return null;
                     },
                     style: GoogleFonts.mulish(),
-                   focusNode: myFocusNode,
+                    focusNode: myFocusNode,
                     cursorColor: Colors.brown,
                     onEditingComplete: () => myFocusNode.unfocus(),
                     controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
-                      errorText: _passwordErrorCode?"Password is incorrect":null,
+                        errorText:
+                            _passwordErrorCode ? "Password is incorrect" : null,
                         prefixIcon: const Icon(
                           Icons.lock,
                           color: Colors.grey,
@@ -193,12 +208,10 @@ class _LoginPageState extends State<LoginPage> {
                 height: 12.0,
               ),
               GestureDetector(
-                onTap: (){
-                  
-                  if(_loginFormKey.currentState!.validate()){
+                onTap: () {
+                  if (_loginFormKey.currentState!.validate()) {
                     signIn();
                   }
-                  
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(
@@ -208,19 +221,22 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(30.0)),
                   child: Text(
                     "Sign in",
-                    style: GoogleFonts.mulish(color: Colors.white, fontSize: 18),
+                    style:
+                        GoogleFonts.mulish(color: Colors.white, fontSize: 18),
                   ),
                 ),
               ),
-        
+
               const SizedBox(
                 height: 20.0,
               ),
-        
+
               // Other authentication options
-        
+
               GestureDetector(
-                onTap: () => signInWithGoogle(),
+                onTap: () {
+                  signInWithGoogle();
+                },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 18.0),
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -244,11 +260,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-        
+
               const SizedBox(
                 height: 12.0,
               ),
-        
+
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 18.0),
                 padding: const EdgeInsets.symmetric(vertical: 12),
@@ -271,13 +287,13 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-        
+
               const SizedBox(
                 height: 50,
               ),
-        
+
               // Register account text
-        
+
               const Text("Don't have an account?")
             ],
           ),

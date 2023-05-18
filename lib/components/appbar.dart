@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,27 +21,27 @@ class Appbar extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                       fontSize: 14,
                       color: Colors.grey.shade500)),
-              Text("Jimmy Sullivan",
+              Text(
+                  FirebaseAuth.instance.currentUser!.displayName != null
+                      ? "${FirebaseAuth.instance.currentUser!.displayName} 👋"
+                      : "User 👋",
                   style: GoogleFonts.mulish(
                       fontWeight: FontWeight.w800, fontSize: 18))
             ],
           ),
           Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all()),
-              child: IconButton(
-                  onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => const Profile(),
-                    //     ));
-                  },
-                  icon: const Icon(
-                    Icons.account_circle,
-                    color: Colors.black,
-                  )))
+              child: FirebaseAuth.instance.currentUser?.photoURL != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        "${FirebaseAuth.instance.currentUser!.photoURL}",
+                        width: 40,
+                        height: 40,
+                      ))
+                  : const Icon(
+                      Icons.account_circle,
+                      size: 50,
+                    ))
         ],
       ),
     );
